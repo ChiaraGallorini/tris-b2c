@@ -1,31 +1,9 @@
-var config = {
-  apiKey: "AIzaSyC2vgNo1YGPGnCAU4ZjLUgVNNL7qSwm08E",
-  authDomain: "tris-b2c.firebaseapp.com",
-  databaseURL: "https://tris-b2c.firebaseio.com",
-  projectId: "tris-b2c",
-  storageBucket: "tris-b2c.appspot.com",
-  messagingSenderId: "1051560844282"
-}
-firebase.initializeApp(config);
-
-var db = firebase.firestore()
-
-var elencoTH
+var elencoTH = $("th")
 var i, turn = 1
-var moves = [0, 0, 0, 0, 0, 0, 0, 0, 0]
-var hash = ''
 
-$(document).ready(() => {
-  elencoTH = $("th")
-  elencoTH.each((i, el) => {
-    el.addEventListener("click", draw)
-  })
-  if (window.location.hash) {
-    hash = window.location.hash
-    hash = hash.replace("#", "")
-  }
-  if (hash) startSession()
-})
+for (i = 0; i < elencoTH.length; i++) {
+  elencoTH[i].addEventListener("click", draw)
+}
 
 function draw(event) {
   var sign
@@ -34,8 +12,7 @@ function draw(event) {
     else sign = "O"
     event.target.innerHTML = sign
     turn = -turn
-    moves[event.target.id] = sign
-    setMoves()
+    check()
   }
 }
 
@@ -78,59 +55,6 @@ function check() {
   }
 }
 
-$("input").keypress((event) => {
-  if (event.which == 13 && $("input").val()) {
-    hash = $("input").val()
-    window.location.hash = `#${hash}`
-    startSession()
-  }
-})
-
-$("#session-btn").on("click", () => {
-  hash = $("input").val()
-  window.location.hash = `#${hash}`
-  startSession()
-})
-
-function startSession() {
-  db.collection("tris").doc(hash).get().then((result) => {
-    if (result.exists) {
-      getMoves()
-    } else
-      db.collection("tris").doc(hash).set({
-        "moves": moves,
-        "turn": 1
-      })
-  })
-  $("th").empty()
-}
-
-function drawDB() {
-  moves.forEach((el, i) => {
-    elencoTH[i].innerHTML = el ? el : ''
-  })
-  check()
-}
-
-function getMoves() {
-  db.collection("tris").doc(hash).onSnapshot(
-    result => {
-      moves = result.data().moves
-      turn = result.data().turn
-      drawDB()
-    }
-  )
-}
-
-function setMoves() {
-  db.collection("tris").doc(hash).set({
-    "moves": moves,
-    "turn": turn
-  })
-}
-
 function reset() {
-  $("th").empty()
-  moves = [0, 0, 0, 0, 0, 0, 0, 0, 0]
-  if (hash) setMoves()
+  $("th").empty();
 }
