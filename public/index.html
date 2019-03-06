@@ -1,14 +1,64 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Tris</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.3/firebase.js"></script>
+    <script src="script.js" charset="utf-8"></script>
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Welcome to Firebase Hosting</title>
-</head>
+    <style media="screen">
 
-<body>
+			body {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+			}
+			th {
+        width: 150px;
+        height: 150px;
+        border: 3px solid black;
+				font-family: sans-serif;
+				font-size: 8em;
+      }
+      #reset {
+        width: 450px;
+      }
 
-</body>
+			.new-session {
+				width: 200px
+			}
 
+    </style>
+  </head>
+  <body>
+		<span>
+			<input class="new-session" type="text" id="sessione" placeholder="Nome partita">
+			<button id="session-btn" class="new-session">Aggiorna sessione</button>
+		</span>
+
+    <table>
+      <tr>
+        <th id="0"></td>
+        <th id="1"></td>
+        <th id="2"></td>
+      </tr>
+      <tr>
+        <th id="3"></td>
+        <th id="4"></td>
+        <th id="5"></td>
+      </tr>
+      <tr>
+        <th id="6"></td>
+        <th id="7"></td>
+        <th id="8"></td>
+      </tr>
+    </table>
+
+    <button id="reset" onclick="reset()">Reset</button>
+  </body>
+
+	<script>
+
+  </script>
 </html>
